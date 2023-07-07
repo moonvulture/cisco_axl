@@ -9,8 +9,8 @@ import urllib3
 # AXL settings and configurations
 class AXLConfig:
     binding_name = "{http://www.cisco.com/AXLAPIService/}AXLAPIBinding"
-    axl_address = "https://136.215.78.10:8443/axl/"
-    wsdl_file = "/home/michael.s.sullivan50.civ/uc-scripts/scripts/schema/AXLAPI.wsdl"
+    axl_address = "https://<IP or hostname>/axl/"
+    wsdl_file = "~/schema/AXLAPI.wsdl"
 
     def __init__(self, username, password):
         self.username = username

@@ -24,9 +24,9 @@ def save_mac_addresses(mac_addresses, file_path):
     wb.save(file_path)
 
 if __name__ == '__main__':
-    username = 'svc.postmanaxl'
+    username = input('Enter Username: ')
     password = getpass("\nEnter AXL Password\n")
-    directory_number_prefix = '5973'
+    directory_number_prefix = '555'
 
     # Instantiate AXLConfig
     axl_config = AXLConfig(username, password)
