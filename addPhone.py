@@ -1,28 +1,36 @@
 # addphone.py
 
 # Import necessary libraries 
+import yaml
+import sys
 from lxml import etree as ET
 from getpass import getpass
 from axl_config import AXLConfig
+from zeep.exceptions import Fault
 from netaddr import EUI, mac_bare
 
+
+# Load the configuration from YAML
+with open("config.yaml", "r") as file:
+    config = yaml.safe_load(file)
+
 # Function to add a line using AXL service
-def add_line():
+def add_line(service, line):
     try:
         resp = service.addLine(line)
     except Fault as err:
-        print( f'Zeep error: addLine: {err}' )
+        print( f'Zeep error: addLine:', err)
         sys.exit(1)
 
     print( '\naddLine response:\n' )
     print( resp,'\n' )
 
 # Function to add a device using AXL service    
-def add_phone():
+def add_phone(service, phone):
     try:
         resp = service.addPhone(phone)
     except Fault as err:
-        print(f'Zeep error: addPhone: {err}')
+        print(f'Zeep error: addPhone:', err)
         sys.exit(1)
 
     print( '\naddPhone response:\n' )
@@ -39,24 +47,24 @@ if __name__ == '__main__':
     # Create a Zeep client and service using the AXL configuration
     service = axl_config.create_service()
 
-    # Set device-specific information
-    mac = 'F8:7A:31:21:CD:1C'
-    desc = ''
-    model = 'Cisco Webex DX80'
-    css = ''
-    device_pool = ''
-    phone_config_name = ''
-    security_profile = ''
-    sip_profile = ''
-    common_device_profile = ''
-    phone_template = 'Standard Cisco Webex DX80'
-    line_desc = ''
-    dirn = ''
-    admin_pass = ''
-    admin_user = ''
-    ldap_server = ''
-    ldap_baseDN = ''
-    ldap_adminGroup = ''
+    phone_config = config.get("phone", {})
+    mac = phone_config.get("mac")
+    desc = phone_config.get("desc")
+    model = phone_config.get("model")
+    css = phone_config.get("css")
+    device_pool = phone_config.get("device_pool")
+    phone_config_name = phone_config.get("phone_config_name")
+    security_profile = phone_config.get("security_profile")
+    sip_profile = phone_config.get("sip_profile")
+    common_device_profile = phone_config.get("common_device_profile")
+    phone_template = phone_config.get("phone_template")
+    line_desc = phone_config.get("line_desc")
+    dirn = phone_config.get("dirn")
+    admin_pass = phone_config.get("admin_pass")
+    admin_user = phone_config.get("admin_user")
+    ldap_server = phone_config.get("ldap_server")
+    ldap_baseDN = phone_config.get("ldap_baseDN")
+    ldap_adminGroup = phone_config.get("ldap_adminGroup")
 
     # Define line information
     line = {
@@ -218,6 +226,6 @@ if __name__ == '__main__':
     phone['vendorConfig'] = xvcType(vendorConfig)
 
     # Call the functions to add line and phone
-    add_line(service, line)
+    # add_line(service, line)
     add_phone(service, phone)
 

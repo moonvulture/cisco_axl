@@ -1,0 +1,18 @@
+phone:
+  mac: 
+  desc: 
+  model: 'Cisco Webex DX80'
+  css: 
+  device_pool: 
+  phone_config_name: 
+  security_profile: 
+  sip_profile: 
+  common_device_profile: 
+  phone_template: 'Standard Cisco Webex DX80'
+  line_desc: 
+  dirn: 
+  admin_pass: 
+  admin_user: 
+  ldap_server: 
+  ldap_baseDN: 
+  ldap_adminGroup: 
